@@ -23,10 +23,9 @@ func TestDistanceMatchStrategy(t *testing.T) {
 	matchmakingSystem := match.NewMatchMakingSystem(distanceStrategy)
 	john, _, sue := WithMember(t, matchmakingSystem)
 	// testing distance base for john
-	matchmakingSystem.Match(john)
-	got := john.GetMatched()
-	if got.GetValue().GetIntro() != sue.GetIntro() {
-		t.Errorf("expected: %s, got: %s", sue.GetIntro(), got.GetValue().GetIntro())
+	got := matchmakingSystem.Match(john)
+	if got.GetValue()[1].GetIntro() != sue.GetIntro() {
+		t.Errorf("expected: %s, got: %s", sue.GetIntro(), got.GetValue()[1].GetIntro())
 	}
 }
 
@@ -35,10 +34,9 @@ func TestHabbitMatchStrategy(t *testing.T) {
 	matchmakingSystem := match.NewMatchMakingSystem(habbitStrategy)
 	john, marry, _ := WithMember(t, matchmakingSystem)
 	// testing habbit base for john
-	matchmakingSystem.Match(john)
-	got := john.GetMatched()
-	if got.GetValue().GetIntro() != marry.GetIntro() {
-		t.Errorf("expected: %s, got: %s", marry.GetIntro(), got.GetValue().GetIntro())
+	got := matchmakingSystem.Match(john)
+	if got.GetValue()[1].GetIntro() != marry.GetIntro() {
+		t.Errorf("expected: %s, got: %s", marry.GetIntro(), got.GetValue()[1].GetIntro())
 	}
 
 }
@@ -48,10 +46,9 @@ func TestInverseDistanceStrategy(t *testing.T) {
 	// testing is-reverse-wrapper for distance base
 	matchmakingSystem := match.NewMatchMakingSystem(match.NewIsReverseWarpper[*match.DistanceBase](distanceStrategy))
 	john, marry, _ := WithMember(t, matchmakingSystem)
-	matchmakingSystem.Match(john)
-	got := john.GetMatched()
-	if got.GetValue().GetIntro() != marry.GetIntro() {
-		t.Errorf("expected: %s, got: %s", marry.GetIntro(), got.GetValue().GetIntro())
+	got := matchmakingSystem.Match(john)
+	if got.GetValue()[1].GetIntro() != marry.GetIntro() {
+		t.Errorf("expected: %s, got: %s", marry.GetIntro(), got.GetValue()[1].GetIntro())
 	}
 }
 
@@ -60,9 +57,8 @@ func TestInverseHabbitStrategy(t *testing.T) {
 	// testing is-reverse-wrapper for habbit base
 	matchmakingSystem := match.NewMatchMakingSystem(match.NewIsReverseWarpper[*match.HabbitBase](habbitStrategy))
 	john, _, sue := WithMember(t, matchmakingSystem)
-	matchmakingSystem.Match(john)
-	got := john.GetMatched()
-	if got.GetValue().GetIntro() != sue.GetIntro() {
-		t.Errorf("expected: %s, got: %s", sue.GetIntro(), got.GetValue().GetIntro())
+	got := matchmakingSystem.Match(john)
+	if got.GetValue()[1].GetIntro() != sue.GetIntro() {
+		t.Errorf("expected: %s, got: %s", sue.GetIntro(), got.GetValue()[1].GetIntro())
 	}
 }

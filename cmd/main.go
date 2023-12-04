@@ -23,25 +23,16 @@ func main() {
 	matchingSystem.AddMember(sue)
 	// match with distance stratgey
 	matchingSystem.Match(john)
-	fmt.Println(john.GetMatched()) // sue is distance matched
 	// clear result
-	john.ClearMatchedIndividual()
-	sue.ClearMatchedIndividual()
 	// switch to habbitBase strategy
 	matchingSystem.SetMatchedType(habbitStrategy)
-	matchingSystem.Match(john)
-	fmt.Println(john.GetMatched()) // marry is habbit matched
-	// clear result
-	john.ClearMatchedIndividual()
-	marry.ClearMatchedIndividual()
+	matchedResult := matchingSystem.Match(john)
+	fmt.Println(matchedResult) // marry is habbit matched
 	// switch to distance reverse stratgey
 	matchingSystem.SetMatchedType(match.NewIsReverseWarpper[*match.DistanceBase](distanceStrategy))
-	matchingSystem.Match(john)
-	fmt.Println(john.GetMatched()) // marry is longest distance for matched
-	// clear result
-	john.ClearMatchedIndividual()
-	marry.ClearMatchedIndividual()
+	matchedResult = matchingSystem.Match(john)
+	fmt.Println(matchedResult) // marry is longest distance for matched
 	matchingSystem.SetMatchedType(match.NewIsReverseWarpper[*match.HabbitBase](habbitStrategy))
-	matchingSystem.Match(john)
-	fmt.Println(john.GetMatched()) // sue is longest distance for matched
+	matchedResult = matchingSystem.Match(john)
+	fmt.Println(matchedResult) // sue is longest distance for matched
 }

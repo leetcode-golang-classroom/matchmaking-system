@@ -33,10 +33,10 @@ func (m *MatchMakingSystem) GetMatchingList(gender Gender) List {
 	return m.listMap[gender]
 }
 
-func (m *MatchMakingSystem) Match(i *Individual) {
+func (m *MatchMakingSystem) Match(i *Individual) *MatchedIndividual {
 	if i.gender == MALE {
-		m.matchedType.Match(i, m.GetMatchingList(FEMALE))
+		return m.matchedType.Match(i, m.GetMatchingList(FEMALE))
 	} else {
-		m.matchedType.Match(i, m.GetMatchingList(MALE))
+		return m.matchedType.Match(i, m.GetMatchingList(MALE))
 	}
 }

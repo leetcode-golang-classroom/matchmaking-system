@@ -10,12 +10,11 @@ func NewHabbitBase() *HabbitBase {
 	return &HabbitBase{}
 }
 
-func (h *HabbitBase) Match(t *Individual, list List) {
+func (h *HabbitBase) Match(t *Individual, list List) *MatchedIndividual {
 	temp := make([]*Individual, len(list))
 	copy(temp, list)
 	sort.Slice(temp, h.Compare(t, list))
-	t.SetMatchedIndividual(temp[0])
-	temp[0].SetMatchedIndividual(t)
+	return NewMatchedIndividual(t, temp[0])
 }
 
 func (h *HabbitBase) Compare(target *Individual, list List) func(i, j int) bool {

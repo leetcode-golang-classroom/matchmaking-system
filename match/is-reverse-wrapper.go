@@ -11,11 +11,11 @@ func NewIsReverseWarpper[T MatchType](origin T) *IsReverseWrapper[T] {
 		origin: origin,
 	}
 }
-func (inv *IsReverseWrapper[T]) Match(target *Individual, list List) {
+func (inv *IsReverseWrapper[T]) Match(target *Individual, list List) *MatchedIndividual {
 	temp := make([]*Individual, len(list))
 	copy(temp, list)
 	sort.Slice(temp, inv.Compare(target, list))
-	target.SetMatchedIndividual(temp[0])
+	return NewMatchedIndividual(target, temp[0])
 }
 
 func (inv *IsReverseWrapper[T]) Compare(target *Individual, list List) func(i, j int) bool {
