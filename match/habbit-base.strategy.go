@@ -4,20 +4,20 @@ import (
 	"sort"
 )
 
-type HabbitBase struct{}
+type HabbitBaseStrategy struct{}
 
-func NewHabbitBase() *HabbitBase {
-	return &HabbitBase{}
+func NewHabbitBase() *HabbitBaseStrategy {
+	return &HabbitBaseStrategy{}
 }
 
-func (h *HabbitBase) Match(t *Individual, list List) *MatchedIndividual {
+func (h *HabbitBaseStrategy) Match(t *Individual, list List) *MatchedIndividual {
 	temp := make([]*Individual, len(list))
 	copy(temp, list)
 	sort.Slice(temp, h.Compare(t, list))
 	return NewMatchedIndividual(t, temp[0])
 }
 
-func (h *HabbitBase) Compare(target *Individual, list List) func(i, j int) bool {
+func (h *HabbitBaseStrategy) Compare(target *Individual, list List) func(i, j int) bool {
 	// compare with habbits
 	return func(i, j int) bool {
 		targetHabbits := target.habbits.GetHabbits()
@@ -27,7 +27,7 @@ func (h *HabbitBase) Compare(target *Individual, list List) func(i, j int) bool 
 	}
 }
 
-func (h *HabbitBase) CountCommonHabbits(h1 Habbits, h2 Habbits) int {
+func (h *HabbitBaseStrategy) CountCommonHabbits(h1 Habbits, h2 Habbits) int {
 	longHabbit := h1
 	shortHabbit := h2
 	if len(h1) < len(h2) {

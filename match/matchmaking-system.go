@@ -3,20 +3,20 @@ package match
 type List []*Individual
 
 type MatchMakingSystem struct {
-	members     List
-	listMap     map[Gender]List
-	matchedType MatchType
+	members         List
+	listMap         map[Gender]List
+	matchedStrategy MatchStrategy
 }
 
-func NewMatchMakingSystem(matchedType MatchType) *MatchMakingSystem {
+func NewMatchMakingSystem(matchedType MatchStrategy) *MatchMakingSystem {
 	return &MatchMakingSystem{
-		members:     make(List, 0),
-		listMap:     make(map[Gender]List),
-		matchedType: matchedType,
+		members:         make(List, 0),
+		listMap:         make(map[Gender]List),
+		matchedStrategy: matchedType,
 	}
 }
-func (m *MatchMakingSystem) SetMatchedType(matchedType MatchType) {
-	m.matchedType = matchedType
+func (m *MatchMakingSystem) SetMatchedType(matchedType MatchStrategy) {
+	m.matchedStrategy = matchedType
 }
 func (m *MatchMakingSystem) GetCurrentMembersLength() int {
 	return len(m.members)
@@ -35,8 +35,8 @@ func (m *MatchMakingSystem) GetMatchingList(gender Gender) List {
 
 func (m *MatchMakingSystem) Match(i *Individual) *MatchedIndividual {
 	if i.gender == MALE {
-		return m.matchedType.Match(i, m.GetMatchingList(FEMALE))
+		return m.matchedStrategy.Match(i, m.GetMatchingList(FEMALE))
 	} else {
-		return m.matchedType.Match(i, m.GetMatchingList(MALE))
+		return m.matchedStrategy.Match(i, m.GetMatchingList(MALE))
 	}
 }

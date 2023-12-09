@@ -3,12 +3,12 @@ package match
 import "sort"
 
 type ReverseWrapper struct {
-	matchType MatchType
+	matchStrategy MatchStrategy
 }
 
-func NewReverseWrapper(matchType MatchType) *ReverseWrapper {
+func NewReverseWrapper(matchType MatchStrategy) *ReverseWrapper {
 	return &ReverseWrapper{
-		matchType: matchType,
+		matchStrategy: matchType,
 	}
 }
 
@@ -21,6 +21,6 @@ func (r *ReverseWrapper) Match(target *Individual, list List) *MatchedIndividual
 
 func (r *ReverseWrapper) Compare(target *Individual, list List) func(i, j int) bool {
 	return func(i int, j int) bool {
-		return !r.matchType.Compare(target, list)(i, j)
+		return !r.matchStrategy.Compare(target, list)(i, j)
 	}
 }
