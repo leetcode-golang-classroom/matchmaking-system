@@ -44,7 +44,7 @@ func TestHabbitMatchStrategy(t *testing.T) {
 func TestInverseDistanceStrategy(t *testing.T) {
 	distanceStrategy := match.NewDistanceBase()
 	// testing is-reverse-wrapper for distance base
-	matchmakingSystem := match.NewMatchMakingSystem(match.NewIsReverseWarpper[*match.DistanceBase](distanceStrategy))
+	matchmakingSystem := match.NewMatchMakingSystem(match.NewReverseWrapper(distanceStrategy))
 	john, marry, _ := WithMember(t, matchmakingSystem)
 	got := matchmakingSystem.Match(john)
 	if got.GetValue()[1].GetIntro() != marry.GetIntro() {
@@ -55,7 +55,7 @@ func TestInverseDistanceStrategy(t *testing.T) {
 func TestInverseHabbitStrategy(t *testing.T) {
 	habbitStrategy := match.NewHabbitBase()
 	// testing is-reverse-wrapper for habbit base
-	matchmakingSystem := match.NewMatchMakingSystem(match.NewIsReverseWarpper[*match.HabbitBase](habbitStrategy))
+	matchmakingSystem := match.NewMatchMakingSystem(match.NewReverseWrapper(habbitStrategy))
 	john, _, sue := WithMember(t, matchmakingSystem)
 	got := matchmakingSystem.Match(john)
 	if got.GetValue()[1].GetIntro() != sue.GetIntro() {
